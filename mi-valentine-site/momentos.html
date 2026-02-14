@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestros Momentos 💖</title>
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top left, #ff9ecf, #ff6fa5, #ff4d88);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Glass card container */
+.card {
+    width: 90%;
+    max-width: 900px;
+    padding: 30px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 20px 50px rgba(255, 0, 128, 0.3);
+    text-align: center;
+    position: relative;
+    color: white;
+}
+
+/* Title */
+h1 {
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Slides */
+.slide {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.slide.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide img {
+    width: 100%;
+    max-width: 700px;
+    max-height: 60vh;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(255, 0, 128, 0.4);
+    margin-bottom: 15px;
+}
+
+.caption {
+    font-size: 18px;
+    max-width: 90%;
+    opacity: 0.95;
+    line-height: 1.4;
+}
+
+/* Final screen */
+.final {
+    font-size: 36px;
+    line-height: 1.6;
+    animation: fadeIn 2s ease forwards;
+    text-align: center;
+}
+
+.final button {
+    margin-top: 15px;
+    padding: 12px 45px;
+    font-size: 20px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.25);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.final button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(255, 0, 128, 0.4);
+}
+
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+/* Floating particles */
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    filter: blur(3px);
+    animation: float 10s linear infinite;
+}
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    40% { opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 { font-size: 28px; }
+    .slide img { max-height: 50vh; }
+    .caption { font-size: 16px; }
+    .final { font-size: 28px; }
+    .final button { font-size: 18px; padding: 10px 35px; }
+}
+@media (max-width: 480px) {
+    h1 { font-size: 24px; }
+    .slide img { max-height: 40vh; }
+    .caption { font-size: 14px; }
+    .final { font-size: 24px; }
+    .final button { font-size: 16px; padding: 8px 25px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Nuestros Momentos 💕</h1>
+
+    <div class="slide active">
+        <img src="images/image1.jpg">
+        <div class="caption">Nuestro primer recuerdo 💖</div>
+    </div>
+    <div class="slide">
+        <img src="images/image2.jpg">
+        <div class="caption">Tu sonrisa ilumina mi mundo ✨</div>
+    </div>
+    <div class="slide">
+        <img src="images/image3.jpg">
+        <div class="caption">Cada momento contigo es especial ❤️</div>
+    </div>
+    <div class="slide">
+        <img src="images/image4.png">
+        <div class="caption">Riendo juntos siempre 💕</div>
+    </div>
+    <div class="slide">
+        <img src="images/image5.jpg">
+        <div class="caption">Contigo todo es mejor 🌹</div>
+    </div>
+    <div class="slide">
+        <img src="images/image6.jpeg">
+        <div class="caption">Mi lugar favorito es a tu lado ❤️</div>
+    </div>
+</div>
+
+<script>
+let slides = document.querySelectorAll(".slide");
+let current = 0;
+let interval = setInterval(nextSlide, 5000);
+
+function nextSlide() {
+    slides[current].classList.remove("active");
+    current++;
+    if (current >= slides.length) {
+        showFinal();
+        return;
+    }
+    slides[current].classList.add("active");
+}
+
+function prevSlide() {
+    slides[current].classList.remove("active");
+    current--;
+    if (current < 0) current = 0;
+    slides[current].classList.add("active");
+}
+
+function showFinal() {
+    clearInterval(interval);
+    const card = document.getElementById("card");
+    card.innerHTML = `
+        <div class="final">
+            TE AMOOO MUCHOO MI AMOR ❤️<br><br>	
+	    Te amo demasiado que me quedo sin palabras <br><br>
+	    Asi que te dedico esta cancion que dice todo lo que siento por ti <br><br>
+				
+
+            <!-- Compact pink-glassy SoundCloud player (auto-play) -->
+            <div style="
+                width: 90%;
+                max-width: 500px;
+                margin: 20px auto;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4);
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+            ">
+                <iframe width="100%" height="120" scrolling="no" frameborder="no"
+                    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/hqkr8iectemt/carla-morrison-disfruto-slowed&color=%23ff4fa3&auto_play=true&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false">
+                </iframe>
+            </div>
+
+            <button onclick="goToQuestionPage()">Volver a la propuesta 💖</button>
+        </div>
+    `;
+}
+
+function goToQuestionPage() {
+    window.location.href = "index.html";
+}
+
+/* Swipe support for mobile */
+let startX = 0;
+document.addEventListener("touchstart", e => startX = e.changedTouches[0].screenX);
+document.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].screenX;
+    if (endX < startX - 50) nextSlide();
+    if (endX > startX + 50) prevSlide();
+});
+
+/* Swipe support for desktop (mouse drag) */
+let mouseDown = false, mouseStartX = 0;
+document.addEventListener("mousedown", e => { mouseDown = true; mouseStartX = e.screenX; });
+document.addEventListener("mouseup", e => {
+    if (!mouseDown) return;
+    let mouseEndX = e.screenX;
+    if (mouseEndX < mouseStartX - 50) nextSlide();
+    if (mouseEndX > mouseStartX + 50) prevSlide();
+    mouseDown = false;
+});
+
+/* Floating particles */
+function createParticle() {
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
+    particle.style.left = Math.random() * window.innerWidth + "px";
+    particle.style.animationDuration = (Math.random() * 6 + 6) + "s";
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 10000);
+}
+setInterval(createParticle, 500);
+</script>
+
+</body>
+</html>
